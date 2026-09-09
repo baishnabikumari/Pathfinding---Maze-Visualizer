@@ -1,5 +1,7 @@
 const canvas = document.getElementById("grid");
 const ctx = canvas.getContext("2d");
+const generateBtn = document.getElementById("generateBtn");
+generateBtn.addEventListener("click", generateMaze)
 
 canvas.width = cols * cellSize;
 canvas.height = rows * cellSize;
@@ -9,7 +11,7 @@ drawGrid(ctx);
 
 let startPlaced = false;
 let endPlaced = false;
-let mouseDown = false
+let mouseDown = false;
 
 function getCell(e){
     const rect = canvas.getBoundingClientRect();

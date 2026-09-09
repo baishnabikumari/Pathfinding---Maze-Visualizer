@@ -23,3 +23,21 @@ canvas{
     border: 1px solid #555;
     cursor: pointer;
 }
+
+#controls{
+    margin-bottom: 12px;
+}
+
+#controls button {
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#controls button:hover{
+    background: #444;
+}
