@@ -6,6 +6,7 @@ function resetMaze(){
             grid[r][c].end = false;
             grid[r][c].visited = false;
             grid[r][c].path = false;
+            grid[r][c].weight = 1;
         }
     }
     startPlaced = false;

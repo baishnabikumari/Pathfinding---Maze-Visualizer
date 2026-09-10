@@ -69,7 +69,7 @@ function bfs() {
             queue.push(neighbor);
         }
         drawGrid(ctx);
-        setTimeout(step, 20);
+        setTimeout(step, speed);
     }
     step();
 }

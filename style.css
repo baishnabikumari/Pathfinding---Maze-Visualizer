@@ -41,3 +41,17 @@ canvas{
 #controls button:hover{
     background: #444;
 }
+
+#controls select,
+#controls input[type="range"]{
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+#controls label{
+    font-size: 14px;
+    margin-left: 6px;
+}

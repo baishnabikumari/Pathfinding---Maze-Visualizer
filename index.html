@@ -10,13 +10,22 @@
 
     <div id="controls">
         <button id="generateBtn"></button>
-        <button id="bfsBtn">Run BFS</button>
+        <select id="algoSelect">
+            <option value="bfs">BFS</option>
+            <option value="dijkstra">Dijkstra</option>
+            <option value="astar">A*</option>
+        </select>
+        <button id="runBtn">Run</button>
+        <button id="resetBtn">Reset</button>
+        <label>Speed <input type="range" id="speedSlider" min="1" max="100" value="20"></label>
     </div>
     <canvas id="grid"></canvas>
 
     <script src="grid.js"></script>
     <script src="maze.js"></script>
     <script src="bfs.js"></script>
+    <script src="dijkstra.js"></script>
+    <script src="astar.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -1,7 +1,25 @@
 const canvas = document.getElementById("grid");
 const ctx = canvas.getContext("2d");
-const generateBtn = document.getElementById("generateBtn");
-generateBtn.addEventListener("click", generateMaze)
+
+let speed = 20;
+const algoMap = { bfs, dijkstra, astar };
+
+const runBtn = document.getElementById("runBtn");
+runBtn.addEventListener("click", () => {
+    const algo = document.getElementById("algoSelect").value;
+    algoMap[algo]();
+});
+
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", () => {
+    clearPath();
+    drawGrid(ctx);
+});
+
+const speedSlider = document.getElementById("speedSlider");
+speedSlider.addEventListener("input", (e) => {
+    speed = Number(e.target.value);
+});
 
 canvas.width = cols * cellSize;
 canvas.height = rows * cellSize;
@@ -23,7 +41,7 @@ function getCell(e){
     return grid[row][col];
 }
 
-function handleCellClick(cell){
+function handleCellClick(cell, isShift){
     if(!cell) return;
 
     if(!startPlaced){
@@ -33,14 +51,18 @@ function handleCellClick(cell){
         cell.end = true;
         endPlaced = true;
     } else if (!cell.start && !cell.end){
-        cell.wall = !cell.wall;
+        if(isShift){
+            cell.weight = cell.weight > 1 ? 1 : 5;
+        } else{
+            cell.wall = !cell.wall;
+        }
     }
     drawGrid(ctx);
 }
 
 canvas.addEventListener("mousedown", (e) => {
     mouseDown = true;
-    handleCellClick(getCell(e));
+    handleCellClick(getCell(e), e.shiftKey);
 });
 canvas.addEventListener("mousemove", (e) => {
     if(!mouseDown) return;
@@ -48,7 +70,8 @@ canvas.addEventListener("mousemove", (e) => {
     if(startPlaced && endPlaced){
         const cell = getCell(e);
         if(cell && !cell.start && !cell.end){
-            cell.wall = true;
+            if(e.shiftKey) cell.weight = 5;
+            else cell.wall = true;
             drawGrid(ctx);
         }
     }

@@ -1,0 +1,53 @@
+function dijkstra(){
+    if(!startPlaced || !endPlaced) return;
+    clearPath();
+
+    const start = getStartCell();
+    const end = getEndCell();
+
+    const dist = new Map();
+    const cameFrom = new Map();
+    const visited = new Set();
+
+    for (let r = 0; r < rows; r++){
+        for(let c = 0; r < rows; r++){
+            dist.set(grid[r][c], Infinity);
+        }
+    }
+    dist.set(start, 0);
+    const queue = [start];
+
+    function step(){
+        if(queue.length === 0) return;
+        let lowestIndex = 0;
+        for(let i = 1; i < queue.length; i++){
+            if(dist.get(queue[i]) < dist.get(queue[lowestIndex])) lowestIndex = i;
+        }
+        const current = queue.splice(lowestIndex, 1)[0];
+
+        if(visited.has(current)){
+            setTimeout(step, 0);
+            return;
+        }
+        visited.add(current);
+        current.visited = true;
+
+        if(current === end){
+            tracePath(cameFrom, end);
+            drawGrid(ctx);
+            return;
+        }
+        for(const neighbor of getNeighbors(current)){
+            if(neighbor.wall || visited.has(neighbor)) continue;
+            const newDist = dist.get(current) + neighbor.weight;
+            if(newDist < dist.get(neighbor)){
+                dist.set(neighbor, newDist);
+                cameFrom.set(neighbor, current);
+                queue.push(neighbor);
+            }
+        }
+        drawGrid(ctx);
+        setTimeout(step, speed);
+    }
+    step();
+}
