@@ -4,6 +4,8 @@ function resetMaze(){
             grid[r][c].wall = true;
             grid[r][c].start = false;
             grid[r][c].end = false;
+            grid[r][c].visited = false;
+            grid[r][c].path = false;
         }
     }
     startPlaced = false;

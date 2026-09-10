@@ -13,7 +13,9 @@ function createGrid(){
                 col: c,
                 wall: false,
                 start: false,
-                end: false
+                end: false,
+                visited: false,
+                path: false
             });
         }
         grid.push(row);
@@ -30,6 +32,8 @@ function drawGrid(ctx){
             if(cell.start) ctx.fillStyle = "#4caf50";
             else if(cell.end) ctx.fillStyle = "#f44336";
             else if(cell.wall) ctx.fillStyle = "#222";
+            else if(cell.path) ctx.fillStyle = "#ffeb3b";
+            else if(cell.visited) ctx.fillStyle = "#3a5f77";
             else ctx.fillStyle = "#2c2c2c";
 
             ctx.fillRect(x, y, cellSize, cellSize);
