@@ -42,7 +42,7 @@ function carve(r,c){
     }
 }
 
-function generateMaze(){
+function backtrackerMaze(){
     resetMaze();
     carve(1,1);
 
@@ -52,4 +52,50 @@ function generateMaze(){
     endPlaced = true;
 
     drawGrid(ctx);
+}
+
+function primMaze(){
+    resetMaze();
+    const frontier = [];
+
+    function addFrontier(r, c){
+        if(r < 1 || r >= rows - 1 || c < 1 || c >= cols - 1) return;
+        if(!grid[r][c].wall) return;
+        if(!frontier.includes(grid[r][c])) frontier.push(grid[r][c]);
+    }
+    grid[1][c].wall = false;
+    addFrontier(1, 3);
+    addFrontier(3, 1);
+
+    while(frontier.length > 0){
+        const idx = Math.floor(Math.random() * frontier.length);
+        const cell = frontier.splice(idx, 1)[0];
+        const options = [
+            [cell.row - 2, cell.col],
+            [cell.row + 2, cell.col],
+            [cell.row, cell.col - 2],
+            [cell.row, cell.col + 2]
+        ].filter(([r, c]) => r >= 1 && r < rows - 1 && c >= 1 && c < cols - 1 && !grid[r][c].wall);
+
+        if (options.length === 0) continue;
+        
+        const [nr, nc] = options[Math.floor(Math.random() * options.length)];
+        cell.wall = false;
+        grid[(cell.row + nr) / 2][(cell.col + nc) / 2].wall = false;
+
+        addFrontier(cell.row - 2, cell.col);
+        addFrontier(cell.row + 2, cell.col);
+        addFrontier(cell.row, cell.col - 2);
+        addFrontier(cell.row, cell.col + 2);
+    }
+    grid[1][1].start = true;
+    grid[rows - 2][cols - 2].end = true;
+    startPlaced = true;
+    endPlaced = true;
+    drawGrid(ctx);
+}
+function generateMaze(){
+    const algo = document.getElementById("mazeSelect").value;
+    if(algo === "prim") primMaze();
+    else backtrackerMaze();
 }

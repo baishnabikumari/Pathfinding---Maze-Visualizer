@@ -37,13 +37,18 @@ function getNeighbors(cell){
 
 function tracePath(cameFrom, endCell){
     let current = endCell;
+    let count = 0;
     while (cameFrom.has(current)){
         current = cameFrom.get(current);
-        if(!current.start) current.path = true;
+        if(!current.start){
+            current.path = true;
+            count++;
+        }
     }
+    return count;
 }
 
-function bfs() {
+function bfs(onDone) {
     if(!startPlaced || !endPlaced) return;
     clearPath();
 
@@ -52,19 +57,25 @@ function bfs() {
     const queue = [start];
     const cameFrom = new Map();
     start.visited = true;
+    const startTime = performance.now();
+    let visitedCount = 1;
 
     function step(){
         if(queue.length === 0) return;
 
         const current = queue.shift();
         if(current === end){
-            tracePath(cameFrom, end);
+            const pathLength = tracePath(cameFrom,end);
+            //tracePath(cameFrom, end);
             drawGrid(ctx);
+            const time = performance.now() - startTime;
+            if (onDone) onDone({ visited: visitedCount, pathLength, time });
             return;
         }
         for(const neighbor of getNeighbors(current)){
             if(neighbor.wall || neighbor.visited) continue;
             neighbor.visited = true;
+            visitedCount++;
             cameFrom.set(neighbor, current);
             queue.push(neighbor);
         }

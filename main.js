@@ -7,8 +7,36 @@ const algoMap = { bfs, dijkstra, astar };
 const runBtn = document.getElementById("runBtn");
 runBtn.addEventListener("click", () => {
     const algo = document.getElementById("algoSelect").value;
-    algoMap[algo]();
+    clearStats();
+    algoMap[algo]((result) => {
+        const label = algo === "astar" ? "A*" : algo[0].toUpperCase() + algo.slice(1);
+        addStatsRow(label, result.visited, result.pathLength, result.time);
+    });
 });
+
+const raceBtn = document.getElementById("raceBtn");
+raceBtn.addEventListener("click", runRace);
+
+function runRace(){
+    clearStats();
+    const order = [
+        ["BES", bfs],
+        ["Dijkstra", dijkstra],
+        ["A*", astar]
+    ];
+
+    function runNext(i){
+        if(i >= order.length) return;
+        const [name, fn] = order[i];
+        clearPath();
+        drawGrid(ctx);
+        fn((result) => {
+            addStatsRow(name, result.visited, result.pathLength, result.time);
+            runNext(i + 1);
+        });
+    }
+    runNext(0);
+}
 
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click", () => {

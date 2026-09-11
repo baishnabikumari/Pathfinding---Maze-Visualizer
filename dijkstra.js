@@ -1,4 +1,4 @@
-function dijkstra(){
+function dijkstra(onDone){
     if(!startPlaced || !endPlaced) return;
     clearPath();
 
@@ -16,13 +16,16 @@ function dijkstra(){
     }
     dist.set(start, 0);
     const queue = [start];
+    const startTime = performance.now();
+    let visitedCount = 0;
 
     function step(){
         if(queue.length === 0) return;
-        let lowestIndex = 0;
-        for(let i = 1; i < queue.length; i++){
-            if(dist.get(queue[i]) < dist.get(queue[lowestIndex])) lowestIndex = i;
-        }
+        // let lowestIndex = 0;
+        // for(let i = 1; i < queue.length; i++){
+        //     if(dist.get(queue[i]) < dist.get(queue[lowestIndex])) lowestIndex = i;
+        // }
+        // const current = queue.splice(lowestIndex, 1)[0];
         const current = queue.splice(lowestIndex, 1)[0];
 
         if(visited.has(current)){
@@ -31,10 +34,14 @@ function dijkstra(){
         }
         visited.add(current);
         current.visited = true;
+        visitedCount++;
 
         if(current === end){
-            tracePath(cameFrom, end);
+            const pathLength = tracePath(cameFrom, end);
+            //tracePath(cameFrom, end);
             drawGrid(ctx);
+            const time = performance.now() - startTime;
+            if(onDone) onDone({ visited: visitedCount, pathLength, time });
             return;
         }
         for(const neighbor of getNeighbors(current)){

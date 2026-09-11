@@ -9,6 +9,10 @@
     <h1>Pathfinding Visualizer</h1>
 
     <div id="controls">
+        <select id="mazeSelect">
+            <option value="backtracker">Backtracker</option>
+            <option value="prim">Prim's</option>
+        </select>
         <button id="generateBtn"></button>
         <select id="algoSelect">
             <option value="bfs">BFS</option>
@@ -17,15 +21,26 @@
         </select>
         <button id="runBtn">Run</button>
         <button id="resetBtn">Reset</button>
+        <button id="raceBtn">Race All</button>
         <label>Speed <input type="range" id="speedSlider" min="1" max="100" value="20"></label>
     </div>
     <canvas id="grid"></canvas>
 
+    <table id="statsTable">
+        <thead>
+            <tr><th>Algorithm</th><th>Nodes Visited</th><th>Path Length</th><th>Time (ms)</th></tr>
+        </thead>
+        <tbody id="statsBody"></tbody>
+    </table>
+
     <script src="grid.js"></script>
+    <script src="utils.js"></script>
     <script src="maze.js"></script>
     <script src="bfs.js"></script>
     <script src="dijkstra.js"></script>
     <script src="astar.js"></script>
+    <script src="stats.js"></script>
+
     <script src="main.js"></script>
 </body>
 </html>

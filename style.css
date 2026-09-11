@@ -21,7 +21,9 @@ h1{
 
 canvas{
     border: 1px solid #555;
+    border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 #controls{
@@ -54,4 +56,23 @@ canvas{
 #controls label{
     font-size: 14px;
     margin-left: 6px;
+}
+
+#statsTable{
+    margin-top: 16px;
+    border-collapse: collapse;
+    font-size: 14px;
+    width: 100%;
+    max-width: 750px;
+}
+
+#statsTable th,
+#statsTable td{
+    border: 1px solid #444;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+#statsTable th{
+    background: #2a2a2a;
 }
