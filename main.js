@@ -2,6 +2,7 @@ const canvas = document.getElementById("grid");
 const ctx = canvas.getContext("2d");
 
 let speed = 20;
+let isRunning = false;
 const algoMap = { bfs, dijkstra, astar };
 
 const generateBtn = document.getElementById("generateBtn");
@@ -9,9 +10,11 @@ generateBtn.addEventListener("click", generateMaze);
 
 const runBtn = document.getElementById("runBtn");
 runBtn.addEventListener("click", () => {
+    isRunning = true;
     const algo = document.getElementById("algoSelect").value;
     clearStats();
     algoMap[algo]((result) => {
+        isRunning = false;
         const label = algo === "astar" ? "A*" : algo === "bfs" ? "BFS" : algo[0].toUpperCase() + algo.slice(1) + algo.slice(1);
         addStatsRow(label, result.visited, result.pathLength, result.time);
     });
@@ -92,11 +95,12 @@ function handleCellClick(cell, isShift){
 }
 
 canvas.addEventListener("mousedown", (e) => {
+    if(isRunning) return;
     mouseDown = true;
     handleCellClick(getCell(e), e.shiftKey);
 });
 canvas.addEventListener("mousemove", (e) => {
-    if(!mouseDown) return;
+    if(!mouseDown || isRunning) return;
     //not start and end
     if(startPlaced && endPlaced){
         const cell = getCell(e);
