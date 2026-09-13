@@ -10,7 +10,7 @@ function dijkstra(onDone){
     const visited = new Set();
 
     for (let r = 0; r < rows; r++){
-        for(let c = 0; r < cols; c++){
+        for(let c = 0; c < cols; c++){
             dist.set(grid[r][c], Infinity);
         }
     }
@@ -19,8 +19,13 @@ function dijkstra(onDone){
     const startTime = performance.now();
     let visitedCount = 0;
 
+    // let stepCount = 0;
     function step(){
         if(queue.length === 0) return;
+        // if(++stepCount > 3000){
+        //     console.warn("dijkstra exceeded 3000 steps");
+        //     return;
+        // }
         // let lowestIndex = 0;
         // for(let i = 1; i < queue.length; i++){
         //     if(dist.get(queue[i]) < dist.get(queue[lowestIndex])) lowestIndex = i;
@@ -50,7 +55,7 @@ function dijkstra(onDone){
             if(newDist < dist.get(neighbor)){
                 dist.set(neighbor, newDist);
                 cameFrom.set(neighbor, current);
-                if(!queue.push(neighbor)) queue.push(neighbor);
+                queue.push(neighbor);
             }
         }
         drawGrid(ctx);

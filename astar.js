@@ -1,4 +1,4 @@
-function heuistic(a, b) {
+function heuristic(a, b) {
     return Math.abs(a.row - b.row) + Math.abs(a.col - b.col);
 }
 
@@ -20,14 +20,19 @@ function astar(onDone){
         }
     }
     gScore.set(start, 0);
-    fScore.set(start, heuistic(start, end));
+    fScore.set(start, heuristic(start, end));
 
     const queue = [start];
     const startTime = performance.now();
     let visitedCount = 0;
 
+    // let stepCount = 0;
     function step(){
         if(queue.length === 0) return;
+        // if(++stepCount > 3000){
+        //     console.warn("astar: exceeded 3000");
+        //     return;
+        // }
         // let lowestIndex = 0;
         // for(let i = 1; i < queue.length; i++){
         //     if(fScore.get(queue[i]) < fScore.get(queue[lowestIndex])) lowestIndex = i;

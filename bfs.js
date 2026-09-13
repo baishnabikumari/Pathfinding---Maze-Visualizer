@@ -60,8 +60,13 @@ function bfs(onDone) {
     const startTime = performance.now();
     let visitedCount = 1;
 
+    // let stepCount = 0;
     function step(){
         if(queue.length === 0) return;
+        // if(++stepCount > 3000){
+        //     console.warn("bfs exceeded 3000 steps");
+        //     return;
+        // }
 
         const current = queue.shift();
         if(current === end){

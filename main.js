@@ -12,7 +12,7 @@ runBtn.addEventListener("click", () => {
     const algo = document.getElementById("algoSelect").value;
     clearStats();
     algoMap[algo]((result) => {
-        const label = algo === "astar" ? "A*" : algo[0].toUpperCase() + algo.slice(1);
+        const label = algo === "astar" ? "A*" : algo === "bfs" ? "BFS" : algo[0].toUpperCase() + algo.slice(1) + algo.slice(1);
         addStatsRow(label, result.visited, result.pathLength, result.time);
     });
 });
