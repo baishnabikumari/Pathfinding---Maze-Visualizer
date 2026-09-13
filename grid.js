@@ -32,11 +32,11 @@ function drawGrid(ctx){
 
             if(cell.start) ctx.fillStyle = "#4caf50";
             else if(cell.end) ctx.fillStyle = "#f44336";
-            else if(cell.wall) ctx.fillStyle = "#222";
+            else if(cell.wall) ctx.fillStyle = "#0a0a0a";
             else if(cell.path) ctx.fillStyle = "#ffeb3b";
             else if(cell.visited) ctx.fillStyle = "#3a5f77";
             else if(cell.weight > 1) ctx.fillStyle = "#7c5b3c";
-            else ctx.fillStyle = "#2c2c2c";
+            else ctx.fillStyle = "#3d3d3d";
 
             ctx.fillRect(x, y, cellSize, cellSize);
             ctx.strokeStyle = "#444";

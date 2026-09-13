@@ -18,7 +18,7 @@ function getStartCell(){
 function getEndCell(){
     for(let r = 0; r < rows; r++){
         for(let c = 0; c < cols; c++){
-            if(grid[r][c].start) return grid[r][c];
+            if(grid[r][c].end) return grid[r][c];
         }
     }
 }

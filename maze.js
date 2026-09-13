@@ -63,7 +63,7 @@ function primMaze(){
         if(!grid[r][c].wall) return;
         if(!frontier.includes(grid[r][c])) frontier.push(grid[r][c]);
     }
-    grid[1][c].wall = false;
+    grid[1][1].wall = false;
     addFrontier(1, 3);
     addFrontier(3, 1);
 

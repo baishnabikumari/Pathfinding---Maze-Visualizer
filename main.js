@@ -4,6 +4,9 @@ const ctx = canvas.getContext("2d");
 let speed = 20;
 const algoMap = { bfs, dijkstra, astar };
 
+const generateBtn = document.getElementById("generateBtn");
+generateBtn.addEventListener("click", generateMaze);
+
 const runBtn = document.getElementById("runBtn");
 runBtn.addEventListener("click", () => {
     const algo = document.getElementById("algoSelect").value;
@@ -20,7 +23,7 @@ raceBtn.addEventListener("click", runRace);
 function runRace(){
     clearStats();
     const order = [
-        ["BES", bfs],
+        ["BFS", bfs],
         ["Dijkstra", dijkstra],
         ["A*", astar]
     ];

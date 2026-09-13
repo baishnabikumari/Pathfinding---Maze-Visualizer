@@ -33,7 +33,7 @@ function astar(onDone){
         //     if(fScore.get(queue[i]) < fScore.get(queue[lowestIndex])) lowestIndex = i;
         // }
         // const current = queue.splice(lowestIndex, 1)[0];
-        const current = queue.splice(lowestIndex, 1)[0];
+        const current = extractLowest(queue, fScore);
 
         if(current === end){
             const pathLength = tracePath(cameFrom, end);

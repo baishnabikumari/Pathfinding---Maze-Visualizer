@@ -10,7 +10,7 @@ function dijkstra(onDone){
     const visited = new Set();
 
     for (let r = 0; r < rows; r++){
-        for(let c = 0; r < rows; r++){
+        for(let c = 0; r < cols; c++){
             dist.set(grid[r][c], Infinity);
         }
     }
@@ -26,7 +26,7 @@ function dijkstra(onDone){
         //     if(dist.get(queue[i]) < dist.get(queue[lowestIndex])) lowestIndex = i;
         // }
         // const current = queue.splice(lowestIndex, 1)[0];
-        const current = queue.splice(lowestIndex, 1)[0];
+        const current = extractLowest(queue, dist);
 
         if(visited.has(current)){
             setTimeout(step, 0);
