@@ -50,7 +50,7 @@ function dijkstra(onDone){
             if(newDist < dist.get(neighbor)){
                 dist.set(neighbor, newDist);
                 cameFrom.set(neighbor, current);
-                queue.push(neighbor);
+                if(!queue.push(neighbor)) queue.push(neighbor);
             }
         }
         drawGrid(ctx);
